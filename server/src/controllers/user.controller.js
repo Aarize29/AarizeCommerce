@@ -49,7 +49,43 @@ const loginUser=async(req,res)=>{
     }
 }
 
+
+const getUser=async(req,res)=>{
+    try {
+        const user=req.user
+        if(!user){
+            return res.json({error:"Not authorized"})
+        }
+        const userinfo=await User.findById(user.userId)
+        if(!userinfo){
+            throw new Error("User not found")
+        }
+       // console.log(userinfo)
+
+        res.json({message:"Got the user broo", userdetail:userinfo})
+    } catch (error) {
+        return res.json(error)
+    }
+
+}
+
+const editUser=async(req,res)=>{
+    try {
+        const user=req.user
+        if(!user){
+            return res.json({error:"Not authorized"})
+        }
+        const {name,email,password,address,contact}=req.body
+
+        await User.updateOne({_id:user.userId},{$set:{name,email,password,address,contact}})
+        return res.json({status:"ok"})
+    } catch (error) {
+        return res.json({error:error})
+    }
+}
 export  {
     registerUser,
-    loginUser
+    loginUser,
+    getUser,
+    editUser
 }

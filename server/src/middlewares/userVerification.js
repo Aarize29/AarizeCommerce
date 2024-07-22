@@ -11,7 +11,7 @@ const verifyUser=(req,res,next)=>{
 
         const extractedToken=token.split(' ')[1]
 
-        const decoded=jwt.decode(extractedToken,proccess.env.JWT_SECTER)
+        const decoded=jwt.decode(extractedToken,process.env.JWT_SECTER)
         req.user=decoded
         next()
     } catch (error) {
