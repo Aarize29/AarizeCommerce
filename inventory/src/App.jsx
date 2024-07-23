@@ -6,7 +6,7 @@ function App() {
   return (
     <>
       <div>
-         Hello Fatima Anees  Mulla
+         Hello World
       </div>
       
     </>
